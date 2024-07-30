@@ -4,7 +4,14 @@ import { Box, Typography } from "@mui/material";
 const SecondDrawer = () => {
   const theme = useTheme();
   return (
-    <Box sx={{ width: 200, overflowX: "auto", height: `calc(100vh - ${50}px)`}}>
+    <Box
+      sx={{
+        width: 200,
+        overflowX: "auto",
+        height: `calc(100vh - ${50}px)`,
+        display: { xs: "none", sm: "block" },
+      }}
+    >
       <Typography>
         {" "}
         <Typography>

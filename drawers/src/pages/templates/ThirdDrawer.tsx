@@ -1,7 +1,9 @@
 import { useTheme } from "@emotion/react";
 import { Box, Typography } from "@mui/material";
 
-const ThirdDrawer = () => {
+const ThirdDrawer = (props: any) => {
+  console.log(props)
+
   const theme = useTheme();
   return (
     <Box sx={{ flexGrow: 1, overflowX: "auto", height: `calc(100vh - ${50}px)` }}>
