@@ -1,12 +1,14 @@
 import { useTheme } from "@emotion/react";
 import { Box, Typography } from "@mui/material";
+import { useState, useEffect } from "react";
 
-const ThirdDrawer = (props: any) => {
-  console.log(props)
-
+const ThirdDrawer = () => {
   const theme = useTheme();
+
   return (
-    <Box sx={{ flexGrow: 1, overflowX: "auto", height: `calc(100vh - ${50}px)` }}>
+    <Box
+      sx={{ flexGrow: 1, overflowX: "auto", height: `calc(100vh - ${50}px)` }}
+    >
       <Typography>
         {" "}
         <Typography>

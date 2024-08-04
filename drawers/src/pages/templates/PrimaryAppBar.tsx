@@ -5,21 +5,32 @@ import {
   IconButton,
   Toolbar,
   Button,
-  Drawer,
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import ThirdDrawer from "./ThirdDrawer";
 
-const PrimaryAppBar = () => {
+import { useEffect } from "react";
+import React from "react";
+
+type PrimaryAppBarProps = {
+  children: React.ReactNode;
+};
+
+type ChildProps = {
+  open: boolean;
+  setOpen: (arg0: boolean) => void;
+  toggleDrawer: (arg0: boolean) => void;
+};
+
+type ChildElement = React.ReactElement<ChildProps>;
+
+const PrimaryAppBar = ({ children }: PrimaryAppBarProps) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const below600 = useMediaQuery("(max-width:599px)");
-  const [item, setItem] = useState(1);
+  // const [item, setItem] = useState(1);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -51,18 +62,11 @@ const PrimaryAppBar = () => {
         </Toolbar>
       </AppBar>
 
-      <Drawer open={open} onClose={toggleDrawer(false)}>
-        <Typography sx={{ width: 100, mt: 8 }} onClose={toggleDrawer(false)}>
-          {[...Array(100)].map((_, i) => (
-            <Typography key={i} paragraph>
-              <Link onClick={() => [setOpen(false), setItem(i + 1)]} to={""}>
-                {i + 1}
-              </Link>
-            </Typography>
-          ))}
-        </Typography>
-      </Drawer>
-      <ThirdDrawer item={item} />
+      {React.Children.map(children, (child) => {
+            return React.isValidElement(child)
+              ? React.cloneElement(child as ChildElement, { open, setOpen, toggleDrawer })
+              : child;
+          })}
     </Box>
   );
 };
